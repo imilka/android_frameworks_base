@@ -77,6 +77,12 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
 
     private int WEEKDAY_SIZE = WEEKDAY_SIZE_SMALL;
 
+    private static final int WEEKDAY_FORMAT_SHORT = 0;
+    private static final int WEEKDAY_FORMAT_MEDIUM  = 1;
+    private static final int WEEKDAY_FORMAT_LONG   = 2;
+
+    private int WEEKDAY_FORMAT = WEEKDAY_FORMAT_MEDIUM;
+
     private boolean SHOW_WEEKDAY = false;
 
     private static final int DAYMONTH_SIZE_NORMAL = 0;
@@ -88,6 +94,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
 
     private int mAmPmSize;
     private int mWeekdaySize;
+    private int mWeekdayFormat;
     private int mDaymonthSize;
     private boolean mShowClock;
     private boolean mShowAmPm;
@@ -111,6 +118,8 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
                     Settings.System.STATUS_BAR_SHOW_AM_PM), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEEKDAY_SIZE), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_WEEKDAY_FORMAT), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_WEEKDAY), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -327,30 +336,84 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
 
     private String getDay(int today) {
         String currentDay = null;
-        switch (today) {
-            case 1:
-                currentDay = getResources().getString(R.string.day_of_week_medium_sunday);
+        switch(WEEKDAY_FORMAT) {
+            case WEEKDAY_FORMAT_SHORT:        
+                switch (today) {
+                    case 1:
+                        currentDay = getResources().getString(R.string.day_of_week_short_sunday);
+                    break;
+                    case 2:
+                        currentDay = getResources().getString(R.string.day_of_week_short_monday);
+                    break;
+                    case 3:
+                        currentDay = getResources().getString(R.string.day_of_week_short_tuesday);
+                    break;
+                    case 4:
+                        currentDay = getResources().getString(R.string.day_of_week_short_wednesday);
+                    break;
+                    case 5:
+                        currentDay = getResources().getString(R.string.day_of_week_short_thursday);
+                    break;
+                    case 6:
+                        currentDay = getResources().getString(R.string.day_of_week_short_friday);
+                    break;
+                    case 7:
+                        currentDay = getResources().getString(R.string.day_of_week_short_saturday);
+                    break;
+                }
             break;
-            case 2:
-                currentDay = getResources().getString(R.string.day_of_week_medium_monday);
+            case WEEKDAY_FORMAT_MEDIUM:
+                switch (today) {
+                    case 1:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_sunday);
+                    break;
+                    case 2:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_monday);
+                    break;
+                    case 3:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_tuesday);
+                    break;
+                    case 4:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_wednesday);
+                    break;
+                    case 5:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_thursday);
+                    break;
+                    case 6:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_friday);
+                    break;
+                    case 7:
+                        currentDay = getResources().getString(R.string.day_of_week_medium_saturday);
+                    break;
+                }
             break;
-            case 3:
-                currentDay = getResources().getString(R.string.day_of_week_medium_tuesday);
-            break;
-            case 4:
-                currentDay = getResources().getString(R.string.day_of_week_medium_wednesday);
-            break;
-            case 5:
-                currentDay = getResources().getString(R.string.day_of_week_medium_thursday);
-            break;
-            case 6:
-                currentDay = getResources().getString(R.string.day_of_week_medium_friday);
-            break;
-            case 7:
-                currentDay = getResources().getString(R.string.day_of_week_medium_saturday);
+            case WEEKDAY_FORMAT_LONG:
+                switch (today) {
+                    case 1:
+                        currentDay = getResources().getString(R.string.day_of_week_long_sunday);
+                    break;
+                    case 2:
+                        currentDay = getResources().getString(R.string.day_of_week_long_monday);
+                    break;
+                    case 3:
+                        currentDay = getResources().getString(R.string.day_of_week_long_tuesday);
+                    break;
+                    case 4:
+                        currentDay = getResources().getString(R.string.day_of_week_long_wednesday);
+                    break;
+                    case 5:
+                        currentDay = getResources().getString(R.string.day_of_week_long_thursday);
+                    break;
+                    case 6:
+                        currentDay = getResources().getString(R.string.day_of_week_long_friday);
+                    break;
+                    case 7:
+                        currentDay = getResources().getString(R.string.day_of_week_long_saturday);
+                    break;
+                }
             break;
         }
-        return currentDay.toUpperCase() + " ";
+        return currentDay.toUpperCase() + " "; 
     }
 
     private String getMonth(int month) {
@@ -409,6 +472,8 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
                     Settings.System.STATUS_BAR_SHOW_WEEKDAY, 0) == 1);
             mWeekdaySize = (Settings.System.getInt(resolver,
                     Settings.System.STATUS_BAR_WEEKDAY_SIZE, 1));
+            mWeekdayFormat = (Settings.System.getInt(resolver,
+                    Settings.System.STATUS_BAR_WEEKDAY_FORMAT, 1));
 
             mShowDaymonth = (Settings.System.getInt(resolver,
                     Settings.System.STATUS_BAR_SHOW_DAYMONTH, 0) == 1);
@@ -429,6 +494,10 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
         if(mShowMore) {
             if (mWeekdaySize != WEEKDAY_SIZE) {
                 WEEKDAY_SIZE = mWeekdaySize;
+            }
+
+            if (mWeekdayFormat != WEEKDAY_FORMAT) {
+                WEEKDAY_FORMAT = mWeekdayFormat;
             }
 
             if (mShowWeekday != SHOW_WEEKDAY) {

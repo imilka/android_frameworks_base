@@ -2566,6 +2566,16 @@ public final class Settings {
         public static final String STATUS_BAR_WEEKDAY_SIZE = "status_bar_weekday_size";
 
         /**
+         * Change the format of abbreviation of weekday
+         * 0: Short (Tu)
+         * 1: Medium (Tue)
+         * 2: Long (Tuesday)
+         * default: 1
+         * @hide
+         */
+        public static final String STATUS_BAR_WEEKDAY_FORMAT = "status_bar_weekday_format";
+
+        /**
          * Whether to show day and month before clock in status bar
          * 0: don't show day and month
          * 1: show day and month
