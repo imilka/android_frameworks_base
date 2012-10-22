@@ -42,7 +42,6 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
-import android.util.ExtendedPropertiesUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -337,7 +336,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
     private String getDay(int today) {
         String currentDay = null;
         switch(WEEKDAY_FORMAT) {
-            case WEEKDAY_FORMAT_SHORT:        
+            case WEEKDAY_FORMAT_SHORT:
                 switch (today) {
                     case 1:
                         currentDay = getResources().getString(R.string.day_of_week_short_sunday);
@@ -413,7 +412,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
                 }
             break;
         }
-        return currentDay.toUpperCase() + " "; 
+        return currentDay.toUpperCase() + " ";
     }
 
     private String getMonth(int month) {
