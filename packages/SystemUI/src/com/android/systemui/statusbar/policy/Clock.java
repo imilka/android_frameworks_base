@@ -342,7 +342,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
         return formatted;
     }
 
-    private int getColor() {
+    private String getColor() {
         String curSetting = Settings.System.getString(mContext.getContentResolver(),
             Settings.System.STATUS_BAR_COLOR);
 
@@ -350,7 +350,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
             ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
             ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : curSetting).split(
             ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
-        String curColor = curColors[Integer.parseInt(mColors[2])];
+        String curColor = curColors[Integer.parseInt(curColors[2])];
         return curColor;
        // int currentColor = new BigInteger(mCurColor, 16).intValue();     
     }
