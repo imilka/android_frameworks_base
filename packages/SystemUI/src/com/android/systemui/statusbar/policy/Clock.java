@@ -336,19 +336,23 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
             }
         }
 
-        String mSetting = Settings.System.getString(mContext.getContentResolver(),
+        ForegroundColorSpan fcs = new ForegroundColorSpan(getColor());
+        formatted.setSpan(fcs, 0, formatted.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        formatted = getColor();
+        return formatted;
+    }
+
+    private int getColor() {
+        String curSetting = Settings.System.getString(mContext.getContentResolver(),
             Settings.System.STATUS_BAR_COLOR);
 
-        String[] mColors = (mSetting == null || mSetting.equals("") ?
+        String[] curColors = (curSetting == null || curSetting.equals("") ?
             ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
-            ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : mSetting).split(
+            ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : curSetting).split(
             ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
-        String mCurColor = mColors[Integer.parseInt(mColors[2])];
-
-        ForegroundColorSpan fcs = new ForegroundColorSpan(new BigInteger(mCurColor, 16).intValue());
-        formatted.setSpan(fcs, 0, formatted.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        
-        return formatted;
+        String curColor = curColors[Integer.parseInt(mColors[2])];
+        return curColor;
+       // int currentColor = new BigInteger(mCurColor, 16).intValue();     
     }
 
     private String getDay(int today) {
