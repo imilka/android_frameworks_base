@@ -27,7 +27,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
@@ -1173,7 +1176,7 @@ public class NetworkController extends BroadcastReceiver {
                     v.setVisibility(View.GONE);
                 } else {
                     v.setVisibility(View.VISIBLE);
-                    Drawable wifiBitmap = this.getResources().getDrawable(mWifiIconId);
+                    Drawable wifiBitmap = mContext.getResources().getDrawable(mWifiIconId);
                     wifiBitmap.setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
                     //v.setImageResource(mWifiIconId);
                     v.setImageDrawable(wifiBitmap);
