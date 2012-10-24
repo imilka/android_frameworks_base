@@ -332,7 +332,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
             }
         }
         ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 0, 0));
-        formatted.setSpan(fcs, 0, formatted.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        formatted.setSpan(fcs, 0, formatted.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         return formatted;
     }
 
