@@ -119,7 +119,6 @@
             <include layout="@layout/signal_cluster_text_view"
                 android:id="@+id/signal_cluster_text"
                 android:layout_width="wrap_content"
-                android:textSize="18sp"
                 android:layout_height="wrap_content"
                 />
             <ImageView

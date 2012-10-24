@@ -31,7 +31,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginRight="-3dip"
-        android:paddingLeft="2dip"
+        android:paddingLeft="4dip"
         >
         <TextView
             android:id="@+id/mobile_signal_text"

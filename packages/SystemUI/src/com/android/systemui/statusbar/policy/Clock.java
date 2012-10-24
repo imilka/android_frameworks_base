@@ -42,6 +42,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
+import android.util.ExtendedPropertiesUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -330,6 +331,8 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
                 }
             }
         }
+        ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 0, 0));
+        formatted.setSpan(fcs, 0, formatted.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         return formatted;
     }
 
