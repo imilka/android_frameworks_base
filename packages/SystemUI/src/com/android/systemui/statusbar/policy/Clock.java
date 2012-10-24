@@ -341,13 +341,25 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
     }
 
     private int getColor() {
-        String curSetting = Settings.System.getString(mContext.getContentResolver(),
-            Settings.System.STATUS_BAR_COLOR);
+        if(ExtendedPropertiesUtils.mIsTablet) {
+            String curSetting = Settings.System.getString(mContext.getContentResolver(),
+                    Settings.System.NAV_BAR_COLOR);
+        } else {
+            String curSetting = Settings.System.getString(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_COLOR);
+        }
 
-        String[] curColors = (curSetting == null || curSetting.equals("") ?
-            ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
-            ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : curSetting).split(
-            ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+        if(ExtendedPropertiesUtils.mIsTablet) {
+            String[] curColors = (curSetting == null || curSetting.equals("") ?
+                ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
+                ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR] : curSetting).split(
+                ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);    
+        } else {        
+            String[] curColors = (curSetting == null || curSetting.equals("") ?
+                ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
+                ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : curSetting).split(
+                ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+        }
         String curColor = curColors[Integer.parseInt(curColors[2])];
         
         int red = new BigInteger(curColor.substring(2,4),16).intValue();
@@ -355,8 +367,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
         int blue = new BigInteger(curColor.substring(6,8),16).intValue();
         int yiq = ((red*299)+(green*587)+(blue*114))/1000;
         
-        return (yiq >= 128) ? Color.rgb(0, 0, 0) : Color.rgb(255, 255, 255);
-       // int currentColor = new BigInteger(mCurColor, 16).intValue();     
+        return (yiq >= 128) ? Color.rgb(0, 0, 0) : Color.rgb(255, 255, 255);     
     }
 
     private String getDay(int today) {
