@@ -53,7 +53,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.math.BigInteger;
+import java.math.Integer;
 
 import com.android.internal.R;
 
