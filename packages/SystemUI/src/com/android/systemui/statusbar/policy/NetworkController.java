@@ -1178,7 +1178,7 @@ public class NetworkController extends BroadcastReceiver {
                 } else {
                     v.setVisibility(View.VISIBLE);
                     Drawable wifiBitmap = mContext.getResources().getDrawable(mWifiIconId);
-                    wifiBitmap.setColorFilter(Color.RED, PorterDuff.Mode.DARKEN);
+                    wifiBitmap.setColorFilter(Color.rgb(255,0,0), PorterDuff.Mode.MULTIPLY);
                     //v.setImageResource(mWifiIconId);
                     v.setImageDrawable(wifiBitmap);
                     v.setContentDescription(mContentDescriptionWifi);
