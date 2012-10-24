@@ -350,9 +350,9 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
             ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
         String curColor = curColors[Integer.parseInt(curColors[2])];
         
-        int red = Integer.parseInt(curColor.substr(2,4));
-        int green = Integer.parseInt(curColor.substr(4,6));
-        int blue = Integer.parseInt(curColor.substr(6,8));
+        int red = Integer.parseInt(curColor.substring(2,4));
+        int green = Integer.parseInt(curColor.substring(4,6));
+        int blue = Integer.parseInt(curColor.substring(6,8));
         int yiq = ((red*299)+(green*587)+(blue*114))/1000;
         
         return (yiq >= 128) ? Color.rgb(0, 0, 0) : Color.rgb(255, 255, 255);
