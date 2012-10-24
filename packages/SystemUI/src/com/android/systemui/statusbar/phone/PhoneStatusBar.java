@@ -38,14 +38,20 @@ import android.content.res.Configuration;
 import android.content.res.CustomTheme;
 import android.content.res.Resources;
 import android.database.ContentObserver;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
@@ -60,6 +66,7 @@ import android.text.Editable;
 import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.ExtendedPropertiesUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.util.Slog;
@@ -114,6 +121,7 @@ import com.android.systemui.statusbar.policy.NotificationRowLayout;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.math.BigInteger;
 
 public class PhoneStatusBar extends BaseStatusBar {
     static final String TAG = "PhoneStatusBar";
@@ -304,8 +312,6 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SCREEN_BRIGHTNESS_MODE), false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_COLOR), false, this);
             update();
         }
 
@@ -321,9 +327,36 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
             mBrightnessControl = !autoBrightness && Settings.System.getInt(
                     resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1;
-            mStatusBarView.setBackgroundColor(Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_COLOR, 0xFF000000));
         }
+    }
+
+    private void updateColor(boolean defaults) {
+        if (defaults) {
+            Bitmap bm = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            Canvas cnv = new Canvas(bm);
+            cnv.drawColor(0xFF000000);
+            mStatusBarView.setBackground(new BitmapDrawable(bm));
+            return;
+        }
+
+        String mSetting = Settings.System.getString(mContext.getContentResolver(),
+            Settings.System.STATUS_BAR_COLOR);
+
+        String[] mColors = (mSetting == null || mSetting.equals("") ?
+            ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
+            ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : mSetting).split(
+            ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+        String mCurColor = mColors[Integer.parseInt(mColors[2])];
+
+        Bitmap bm = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        Canvas cnv = new Canvas(bm);
+        cnv.drawColor(new BigInteger(mCurColor, 16).intValue());
+
+        TransitionDrawable transition = new TransitionDrawable(new Drawable[]{
+            mStatusBarView.getBackground(), new BitmapDrawable(bm)});
+        transition.setCrossFadeEnabled(true);
+        mStatusBarView.setBackground(transition);
+        transition.startTransition(1000);
     }
 
     private int mNavigationIconHints = 0;
@@ -412,6 +445,14 @@ public class PhoneStatusBar extends BaseStatusBar {
 
         SettingsObserver observer = new SettingsObserver(mHandler);
         observer.observe();
+
+        mContext.getContentResolver().registerContentObserver(
+            Settings.System.getUriFor(Settings.System.STATUS_BAR_COLOR), false, new ContentObserver(new Handler()) {
+                @Override
+                public void onChange(boolean selfChange) {
+                    updateColor(false);
+                }});
+        updateColor(true);
 
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext);

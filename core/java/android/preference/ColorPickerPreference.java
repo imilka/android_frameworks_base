@@ -209,6 +209,10 @@ public class ColorPickerPreference extends Preference implements
      * @author Unknown
      */
     public static String convertToARGB(int color) {
+        return convertToARGB(color, true);
+    }
+
+    public static String convertToARGB(int color, boolean allowAlpha) {
         String alpha = Integer.toHexString(Color.alpha(color));
         String red = Integer.toHexString(Color.red(color));
         String green = Integer.toHexString(Color.green(color));
@@ -230,7 +234,7 @@ public class ColorPickerPreference extends Preference implements
             blue = "0" + blue;
         }
 
-        return "#" + alpha + red + green + blue;
+        return "#" +  ((allowAlpha ? alpha : "FF") + red + green + blue).toUpperCase();
     }
 
     /**
@@ -241,6 +245,10 @@ public class ColorPickerPreference extends Preference implements
      * @author Unknown
      */
     public static int convertToColorInt(String argb) {
+        return convertToColorInt(argb, true);
+    }
+
+    public static int convertToColorInt(String argb, boolean allowAlpha) {
         try {
             if (argb.startsWith("#")) {
                 argb = argb.replace("#", "");
@@ -260,7 +268,7 @@ public class ColorPickerPreference extends Preference implements
                 green = Integer.parseInt(argb.substring(2, 4), 16);
                 blue = Integer.parseInt(argb.substring(4, 6), 16);
             }
-            return Color.argb(alpha, red, green, blue);
+            return Color.argb((allowAlpha ? alpha : 255), red, green, blue);
         } catch(NumberFormatException e) {
             // We should use androids isUseraMonkey() function here
             return 0xFF000000;

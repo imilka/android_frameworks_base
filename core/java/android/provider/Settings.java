@@ -2409,48 +2409,33 @@ public final class Settings {
 
         /**
          * Ability to change navigation bar color
-         * This is the default/fallback navbar color that is set in the android settings.
+         * Format: AARRGGBB|AARRGGBB|index
+         * First color is the primary, systemwide color
+         * Second is the color of the current foreground-app
+         * Last (third) entry determines which has changed last, 0 or 1
          * @hide
          */
         public static final String NAV_BAR_COLOR = "nav_bar_color";
 
         /**
-         * Ability to change navigation bar color
-         * This is the secondary option which apps can use to override the system-wide one
-         * as long as they are running in the foreground.
-         * @hide
-         */
-        public static final String NAV_BAR_COLOR_SECONDARY = "nav_bar_color_secondary";
-
-        /**
          * Ability to change navigation button color
-         * This is the default/fallback navbar color that is set in the android settings.
+         * Format: AARRGGBB|AARRGGBB|index
+         * First color is the primary, systemwide color
+         * Second is the color of the current foreground-app
+         * Last (third) entry determines which has changed last, 0 or 1
          * @hide
          */
         public static final String NAV_BUTTON_COLOR = "nav_button_color";
 
         /**
-         * Ability to change navigation button color
-         * This is the secondary option which apps can use to override the system-wide one
-         * as long as they are running in the foreground.
-         * @hide
-         */
-        public static final String NAV_BUTTON_COLOR_SECONDARY = "nav_button_color_secondary";
-
-        /**
          * Ability to change navigation glow color
-         * This is the default/fallback navbar color that is set in the android settings.
+         * Format: AARRGGBB|AARRGGBB|index
+         * First color is the primary, systemwide color
+         * Second is the color of the current foreground-app
+         * Last (third) entry determines which has changed last, 0 or 1
          * @hide
          */
         public static final String NAV_GLOW_COLOR = "nav_glow_color";
-
-        /**
-         * Ability to change navigation glow color
-         * This is the secondary option which apps can use to override the system-wide one
-         * as long as they are running in the foreground.
-         * @hide
-         */
-        public static final String NAV_GLOW_COLOR_SECONDARY = "nav_glow_color_secondary";
 
         /**
          * Navigation controls to Use
@@ -2595,6 +2580,10 @@ public final class Settings {
 
         /**
          * Statusbar color. May include alpha
+         * Format: AARRGGBB|AARRGGBB|index
+         * First color is the primary, systemwide color
+         * Second is the color of the current foreground-app
+         * Last (third) entry determines which has changed last, 0 or 1
          * @hide
          */
         public static final String STATUS_BAR_COLOR = "status_bar_color";
@@ -3096,11 +3085,9 @@ public final class Settings {
          */
         public static final String[] INSECURE_SETTINGS = {
             NAV_BAR_COLOR,
-            NAV_BAR_COLOR_SECONDARY,
             NAV_BUTTON_COLOR,
-            NAV_BUTTON_COLOR_SECONDARY,
             NAV_GLOW_COLOR,
-            NAV_GLOW_COLOR_SECONDARY
+            STATUS_BAR_COLOR
         };
 
         // Settings moved to Settings.Secure
