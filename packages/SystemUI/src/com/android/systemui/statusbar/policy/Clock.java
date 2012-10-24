@@ -53,6 +53,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.math.BigInteger;
 
 import com.android.internal.R;
 
@@ -127,6 +128,8 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
                     Settings.System.STATUS_BAR_DAYMONTH_SIZE), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_DAYMONTH), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(		
+                    Settings.System.STATUS_BAR_COLOR), false, this);
         }
 
         @Override
@@ -332,8 +335,19 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
                 }
             }
         }
-        ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 0, 0));
+
+        String mSetting = Settings.System.getString(mContext.getContentResolver(),
+            Settings.System.STATUS_BAR_COLOR);
+
+        String[] mColors = (mSetting == null || mSetting.equals("") ?
+            ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
+            ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : mSetting).split(
+            ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
+        String mCurColor = mColors[Integer.parseInt(mColors[2])];
+
+        ForegroundColorSpan fcs = new ForegroundColorSpan(new BigInteger(mCurColor, 16).intValue());
         formatted.setSpan(fcs, 0, formatted.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        
         return formatted;
     }
 
