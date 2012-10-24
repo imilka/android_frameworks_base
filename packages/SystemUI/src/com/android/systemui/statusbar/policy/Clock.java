@@ -341,30 +341,30 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
     }
 
     private int getColor() {
-        if(ExtendedPropertiesUtils.mIsTablet) {
-            String curSetting = Settings.System.getString(mContext.getContentResolver(),
+        if (ExtendedPropertiesUtils.mIsTablet) {
+            mCurSetting = Settings.System.getString(mContext.getContentResolver(),
                     Settings.System.NAV_BAR_COLOR);
         } else {
-            String curSetting = Settings.System.getString(mContext.getContentResolver(),
+            mCurSetting = Settings.System.getString(mContext.getContentResolver(),
                     Settings.System.STATUS_BAR_COLOR);
         }
 
-        if(ExtendedPropertiesUtils.mIsTablet) {
-            String[] curColors = (curSetting == null || curSetting.equals("") ?
+        if (ExtendedPropertiesUtils.mIsTablet) {
+            String[] mCurColors = (mCurSetting == null || mCurSetting.equals("") ?
                 ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
-                ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR] : curSetting).split(
+                ExtendedPropertiesUtils.PARANOID_COLORS_NAVBAR] : mCurSetting).split(
                 ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);    
         } else {        
-            String[] curColors = (curSetting == null || curSetting.equals("") ?
+            String[] mCurColors = (mCurSetting == null || mCurSetting.equals("") ?
                 ExtendedPropertiesUtils.PARANOID_COLORS_DEFAULTS[
-                ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : curSetting).split(
+                ExtendedPropertiesUtils.PARANOID_COLORS_STATBAR] : mCurSetting).split(
                 ExtendedPropertiesUtils.PARANOID_STRING_DELIMITER);
         }
-        String curColor = curColors[Integer.parseInt(curColors[2])];
+        String mCurColor = mCurColors[Integer.parseInt(mCurColors[2])];
         
-        int red = new BigInteger(curColor.substring(2,4),16).intValue();
-        int green = new BigInteger(curColor.substring(4,6),16).intValue();
-        int blue = new BigInteger(curColor.substring(6,8),16).intValue();
+        int red = new BigInteger(mCurColor.substring(2,4),16).intValue();
+        int green = new BigInteger(mCurColor.substring(4,6),16).intValue();
+        int blue = new BigInteger(mCurColor.substring(6,8),16).intValue();
         int yiq = ((red*299)+(green*587)+(blue*114))/1000;
         
         return (yiq >= 128) ? Color.rgb(0, 0, 0) : Color.rgb(255, 255, 255);     
