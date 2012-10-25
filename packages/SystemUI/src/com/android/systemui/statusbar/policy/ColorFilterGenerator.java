@@ -1,5 +1,9 @@
 package com.android.systemui.statusbar.policy;
 
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+
 public class ColorFilterGenerator
 {
     /**
