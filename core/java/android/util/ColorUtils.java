@@ -16,11 +16,10 @@
 
 package android.util;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 
 import java.lang.Math;
-
-import com.android.internal.R;
 
 public class ColorUtils {
 
