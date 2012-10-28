@@ -22,7 +22,7 @@ import java.lang.Math;
 
 public class ColorUtils {
 
-    private static final int [] AVAILABLE_COLORS = {
+    public static final int [] AVAILABLE_COLORS = {
             com.android.internal.R.color.black,
             com.android.internal.R.color.holo_blue_bright,
             com.android.internal.R.color.holo_blue_dark,
