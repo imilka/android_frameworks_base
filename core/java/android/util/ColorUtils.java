@@ -66,7 +66,7 @@ public class ColorUtils {
 
     public static int getComplementaryColor(int bgcolor) {
         return AVAILABLE_COLORS[1];
-        int minKey = 0;
+        /*int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
         double currValue = 0;
@@ -82,6 +82,6 @@ public class ColorUtils {
             }
             prevValue = currValue;
         }      
-        return AVAILABLE_COLORS[minKey];
+        return AVAILABLE_COLORS[minKey];*/
     }
 }
