@@ -20,6 +20,8 @@ import android.graphics.Color;
 
 import java.lang.Math;
 
+import com.android.internal.R;
+
 public class ColorUtils {
 
     public static final int[] AVAILABLE_COLORS = {
@@ -65,7 +67,8 @@ public class ColorUtils {
     }  
 
     public static int getComplementaryColor(int bgcolor) {
-        int minKey = 0;
+        return com.android.internal.R.color.holo_purple;
+        /*int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
         double currValue = 0;
@@ -81,6 +84,6 @@ public class ColorUtils {
             }
             prevValue = currValue;
         }      
-        return AVAILABLE_COLORS[minKey];
+        return AVAILABLE_COLORS[minKey];*/
     }
 }
