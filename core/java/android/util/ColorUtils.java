@@ -22,7 +22,7 @@ import java.lang.Math;
 
 public class ColorUtils {
 
-    public static final int [] AVAILABLE_COLORS = {
+    public static final int[] AVAILABLE_COLORS = {
             com.android.internal.R.color.black,
             com.android.internal.R.color.holo_blue_bright,
             com.android.internal.R.color.holo_blue_dark,
@@ -65,8 +65,7 @@ public class ColorUtils {
     }  
 
     public static int getComplementaryColor(int bgcolor) {
-        return Color.rgb(255,255,0);
-        /*int minKey = 0;
+        int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
         double currValue = 0;
@@ -82,6 +81,6 @@ public class ColorUtils {
             }
             prevValue = currValue;
         }      
-        return AVAILABLE_COLORS[minKey];*/
+        return AVAILABLE_COLORS[minKey];
     }
 }
