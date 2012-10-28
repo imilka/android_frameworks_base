@@ -37,8 +37,8 @@ public class ColorUtils {
             com.android.internal.R.color.white
     };
 
-    private static final float comparativeFactor = 3.5;
-    private static final float comparativeNumber = comparativeFactor*125;
+    private static final double comparativeFactor = 3.5;
+    private static final double comparativeNumber = comparativeFactor*125;
     
     private static int getColorLuminance(int color) {
         //int red = 0xFF & (color >> 16);
@@ -66,10 +66,10 @@ public class ColorUtils {
 
     public static int getComplementaryColor(int bgcolor) {
         int minKey = 0;
-        float lumDiff = 0;
-        float colDiff = 0;
-        float currValue = 0;
-        float prevValue = -1;
+        double lumDiff = 0;
+        double colDiff = 0;
+        double currValue = 0;
+        double prevValue = -1;
         for (int i = 0; i < AVAILABLE_COLORS.length; i++) {
             lumDiff = getLuminanceDifference(bgcolor, AVAILABLE_COLORS[i])*comparativeFactor;
             colDiff = getColorDifference(bgcolor, AVAILABLE_COLORS[i]);
