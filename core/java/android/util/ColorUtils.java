@@ -73,8 +73,7 @@ public class ColorUtils {
     }  
 
     public static int getComplementaryColor(int bgcolor) {
-        return mContext.getResources()
-                .getColor(com.android.internal.R.color.holo_purple);
+        return getResources().getColor(com.android.internal.R.color.holo_purple);
         /*int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
