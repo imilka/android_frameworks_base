@@ -24,8 +24,6 @@ import java.lang.Math;
 
 public class ColorUtils {
 
-    public static Context mContext;
-
     public static final int[] AVAILABLE_COLORS = {
             com.android.internal.R.color.black,
             com.android.internal.R.color.holo_blue_bright,
