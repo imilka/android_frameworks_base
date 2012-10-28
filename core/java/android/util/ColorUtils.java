@@ -16,12 +16,15 @@
 
 package android.util;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 
 import java.lang.Math;
 
 public class ColorUtils {
+
+    private final Context mContext;
 
     public static final int[] AVAILABLE_COLORS = {
             com.android.internal.R.color.black,
@@ -66,7 +69,8 @@ public class ColorUtils {
     }  
 
     public static int getComplementaryColor(int bgcolor) {
-        return com.android.internal.R.color.holo_purple;
+        return mContext.getResources()
+                .getColor(com.android.internal.R.color.holo_purple);
         /*int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
