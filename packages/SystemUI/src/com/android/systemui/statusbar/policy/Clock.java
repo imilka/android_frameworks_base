@@ -369,7 +369,7 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
         int green = new BigInteger(curColor.substring(4,6),16).intValue();
         int blue = new BigInteger(curColor.substring(6,8),16).intValue();
         
-        return ColorUtils.getComplementaryColor(Color.rgb(red, green, blue));   
+        return Color.rgb(255, 0, 0);   
     }
 
     private String getDay(int today) {
