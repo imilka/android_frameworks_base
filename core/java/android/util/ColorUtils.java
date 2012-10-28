@@ -37,8 +37,8 @@ public class ColorUtils {
             com.android.internal.R.color.white
     };
 
-    private static final int comparativeFactor = 3.5;
-    private static final int comparativeNumber = comparativeFactor*125;
+    private static final double comparativeFactor = 3.5;
+    private static final double comparativeNumber = comparativeFactor*125;
     
     private static int getColorLuminance(int color) {
         //int red = 0xFF & (color >> 16);
@@ -47,7 +47,7 @@ public class ColorUtils {
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);
-        return Math.floor(((red*299)+(green*587)+(blue*114))/1000);  
+        return Math.round(((red*299)+(green*587)+(blue*114))/1000);  
     }
 
     private static int getLuminanceDifference(int color1, int color2) {
@@ -65,18 +65,18 @@ public class ColorUtils {
     }  
 
     public static int getComplementaryColor(int bgcolor) {
-        int minKey = null;
-        int lumDiff = null;
-        int colDiff = null;
-        int currValue = null;
-        int prevValue = null;
+        int minKey = 0;
+        int lumDiff = 0;
+        int colDiff = 0;
+        int currValue = 0;
+        int prevValue = -1;
         for (int i = 0; i < AVAILABLE_COLORS.length; i++) {
             lumDiff = getLuminanceDifference(bgcolor, AVAILABLE_COLORS[i])*comparativeFactor;
             colDiff = getColorDifference(bgcolor, AVAILABLE_COLORS[i]);
             lumDiff = Math.max(comparativeNumber, lumDiff) - Math.min(comparativeNumber, lumDiff);
             colDiff = Math.max(comparativeNumber, colDiff) - Math.min(comparativeNumber, colDiff);
             currValue = lumDiff + colDiff;
-            if (prevValue == null || currValue < prevValue) {
+            if (prevValue == -1 || currValue < prevValue) {
                 minKey = i;
             }
             prevValue = currValue;
