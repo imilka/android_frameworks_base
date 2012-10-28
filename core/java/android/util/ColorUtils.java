@@ -71,10 +71,10 @@ public class ColorUtils {
         int currValue = 0;
         int prevValue = -1;
         for (int i = 0; i < AVAILABLE_COLORS.length; i++) {
-            lumDiff = getLuminanceDifference(bgcolor, AVAILABLE_COLORS[i])*comparativeFactor;
+            lumDiff = Math.round(getLuminanceDifference(bgcolor, AVAILABLE_COLORS[i])*comparativeFactor);
             colDiff = getColorDifference(bgcolor, AVAILABLE_COLORS[i]);
-            lumDiff = Math.max(comparativeNumber, lumDiff) - Math.min(comparativeNumber, lumDiff);
-            colDiff = Math.max(comparativeNumber, colDiff) - Math.min(comparativeNumber, colDiff);
+            lumDiff = Math.round(Math.max(comparativeNumber, lumDiff) - Math.min(comparativeNumber, lumDiff));
+            colDiff = Math.round(Math.max(comparativeNumber, colDiff) - Math.min(comparativeNumber, colDiff));
             currValue = lumDiff + colDiff;
             if (prevValue == -1 || currValue < prevValue) {
                 minKey = i;
