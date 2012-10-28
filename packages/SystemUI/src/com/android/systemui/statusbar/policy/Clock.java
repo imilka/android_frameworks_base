@@ -44,6 +44,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.util.ExtendedPropertiesUtils;
+import android.util.ColorUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -367,9 +368,8 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
         int red = new BigInteger(curColor.substring(2,4),16).intValue();
         int green = new BigInteger(curColor.substring(4,6),16).intValue();
         int blue = new BigInteger(curColor.substring(6,8),16).intValue();
-        int yiq = ((red*299)+(green*587)+(blue*114))/1000;
         
-        return (yiq >= 128) ? Color.rgb(0, 0, 0) : Color.rgb(255, 255, 255);     
+        return ColorUtils.getComplementaryColor(Color.rgb(red, green, blue));   
     }
 
     private String getDay(int today) {
