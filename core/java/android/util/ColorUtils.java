@@ -35,7 +35,7 @@ public class ColorUtils {
             com.android.internal.R.color.holo_red_dark,
             com.android.internal.R.color.holo_red_light,
             com.android.internal.R.color.white
-    }
+    };
 
     private static final int comparativeFactor = 3.5;
     private static final int comparativeNumber = comparativeFactor*125;
