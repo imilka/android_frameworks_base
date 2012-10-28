@@ -24,6 +24,8 @@ import java.lang.Math;
 
 public class ColorUtils {
 
+    public static Context mContext;
+
     public static final int[] AVAILABLE_COLORS = {
             com.android.internal.R.color.black,
             com.android.internal.R.color.holo_blue_bright,
@@ -41,6 +43,10 @@ public class ColorUtils {
 
     private static final double comparativeFactor = 3.5;
     private static final double comparativeNumber = comparativeFactor*125;
+    
+    public ColorUtils(Context context) {
+        mContext = context; 
+    }    
     
     private static int getColorLuminance(int color) {
         //int red = 0xFF & (color >> 16);
