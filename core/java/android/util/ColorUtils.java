@@ -74,7 +74,7 @@ public class ColorUtils {
         double currValue = 0;
         double prevValue = -1;
         for (int i = 0; i < AVAILABLE_COLORS.length; i++) {
-            lumDiff = comparativeFactor * getLuminanceDifference(bgcolor,
+            lumDiff = COMPARATIVE_FACTOR * getLuminanceDifference(bgcolor,
                     res.getColor(AVAILABLE_COLORS[i]));
             colDiff = getColorDifference(bgcolor,
                     res.getColor(AVAILABLE_COLORS[i]));
