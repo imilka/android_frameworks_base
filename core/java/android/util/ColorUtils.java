@@ -67,23 +67,25 @@ public class ColorUtils {
     }  
 
     public static int getComplementaryColor(int bgcolor, Context context) {
-        return context.getResources().getColor(com.android.internal.R.color.holo_purple);
-        /*int minKey = 0;
+        Resources res = context.getResources();        
+        int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
         double currValue = 0;
         double prevValue = -1;
         for (int i = 0; i < AVAILABLE_COLORS.length; i++) {
-            lumDiff = getLuminanceDifference(bgcolor, AVAILABLE_COLORS[i])*comparativeFactor;
-            colDiff = getColorDifference(bgcolor, AVAILABLE_COLORS[i]);
-            lumDiff = Math.max(comparativeNumber, lumDiff) - Math.min(comparativeNumber, lumDiff);
-            colDiff = Math.max(comparativeNumber, colDiff) - Math.min(comparativeNumber, colDiff);
+            lumDiff = comparativeFactor * getLuminanceDifference(bgcolor,
+                    res.getColor(AVAILABLE_COLORS[i]));
+            colDiff = getColorDifference(bgcolor,
+                    res.getColor(AVAILABLE_COLORS[i]));
+            lumDiff = Math.abs(COMPARATIVE_NUMBER - lumDiff);
+            colDiff = Math.abs(COMPARATIVE_NUMBER - colDiff);
             currValue = lumDiff + colDiff;
             if (prevValue == -1 || currValue < prevValue) {
                 minKey = i;
             }
             prevValue = currValue;
         }      
-        return AVAILABLE_COLORS[minKey];*/
+        return res.getColor(AVAILABLE_COLORS[minKey]);
     }
 }
