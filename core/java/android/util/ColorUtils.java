@@ -24,8 +24,6 @@ import java.lang.Math;
 
 public class ColorUtils {
 
-    public static Context mContext;
-
     public static final int[] AVAILABLE_COLORS = {
             com.android.internal.R.color.black,
             com.android.internal.R.color.holo_blue_bright,
@@ -41,12 +39,8 @@ public class ColorUtils {
             com.android.internal.R.color.white
     };
 
-    private static final double comparativeFactor = 3.5;
-    private static final double comparativeNumber = comparativeFactor*125;
-    
-    public ColorUtils(Context context) {
-        mContext = context; 
-    }    
+    private static final double COMPARATIVE_FACTOR = 3.5;
+    private static final double COMPARATIVE_NUMBER = COMPARATIVE_FACTOR*125;
     
     private static int getColorLuminance(int color) {
         //int red = 0xFF & (color >> 16);
@@ -61,19 +55,19 @@ public class ColorUtils {
     private static int getLuminanceDifference(int color1, int color2) {
         int lum1 = getColorLuminance(color1);
         int lum2 = getColorLuminance(color2);
-        return Math.max(lum1, lum2) - Math.min(lum1, lum2);
+        return Math.abs(lum1 - lum2);
     }
 
     private static int getColorDifference(int color1, int color2) {
         int[] rgb1 = {Color.red(color1), Color.green(color1), Color.blue(color1)};
         int[] rgb2 = {Color.red(color2), Color.green(color2), Color.blue(color2)}; 
-        return (Math.max(rgb1[0], rgb2[0]) - Math.min(rgb1[0], rgb2[0])) +
-               (Math.max(rgb1[1], rgb2[1]) - Math.min(rgb1[1], rgb2[1])) +
-               (Math.max(rgb1[2], rgb2[2]) - Math.min(rgb1[2], rgb2[2])); 
+        return Math.abs(rgb1[0] - rgb2[0]) +
+               Math.abs(rgb1[1] - rgb2[1]) +
+               Math.abs(rgb1[2] - rgb2[2]); 
     }  
 
-    public static int getComplementaryColor(int bgcolor) {
-        return getResources().getColor(com.android.internal.R.color.holo_purple);
+    public static int getComplementaryColor(int bgcolor, Context context) {
+        return context.getResources().getColor(com.android.internal.R.color.holo_purple);
         /*int minKey = 0;
         double lumDiff = 0;
         double colDiff = 0;
